@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WhatYouNeed</string>
+    <string name="label_email">Email</string>
+    <string name="label_password">Password</string>
+    <string name="label_login">Accedi</string>
+    <string name="label_registration_worker">Registrati come professionista</string>
+    <string name="label_registration_visitor">Registrati come visitatore</string>
+    <string name="label_or">oppure</string>
+    <string name="label_registration">Registrazione</string>
+    <string name="label_name">Nome</string>
+    <string name="label_surname">Cognome</string>
+    <string name="hint_email">La tua email</string>
+    <string name="hint_name">Il tuo nome</string>
+    <string name="hint_password">Scegli una password</string>
+    <string name="hint_surname">Il tuo cognome</string>
+    <string name="label_terms"><![CDATA[Accetto Termini & Condizioni]]></string>
+    <string name="label_back">Indietro</string>
+    <string name="label_app_name" translatable="false"></string>
+    <string name="toast_registration_error">Errore di Registrazione</string>
+    <string name="label_profession">Professione</string>
+    <string name="hint_role">Il tuo ruolo</string>
+    <string name="label_rate">Prezzo</string>
+    <string name="hint_rate">Il tuo prezzo medio</string>
+    <string name="label_city">Citta</string>
+    <string name="hint_city">La tua citta</string>
+    <string name="label_birthday">Data di Nascita</string>
+    <string name="hint_birthday">La tua data di nascita</string>
+    <string name="label_home">Bacheca</string>
+    <string name="toast_login_error">Credenziali errate, per favore riprova.</string>
+    <string name="hint_findname">Ricerca per nome</string>
+    <string name="hint_findcity">Ricerca per citta\'</string>
+    <string name="hint_findrole">Ricerca una professione</string>
+    <string name="hint_findprice">Ricerca per prezzo</string>
+    <string name="label_startsearch">Avvia Ricerca</string>
+    <string name="label_search">Ricerca</string>
+</resources>

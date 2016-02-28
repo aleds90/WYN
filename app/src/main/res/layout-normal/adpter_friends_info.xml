@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@android:color/transparent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/firtLayout"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:id="@+id/nickname"
+            android:textSize="25dp"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+           android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:id="@+id/surname"
+            android:textSize="25dp"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+            android:text="ciao"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/firtLayout"
+        android:gravity="center"
+        android:id="@+id/interestsPrimary"
+        style="@style/LayoutInterest">
+
+        <TextView
+            android:layout_marginRight="15dp"
+            style="@style/TextViewInterest"
+            android:id="@+id/interest_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+
+            style="@style/TextViewInterest"
+            android:id="@+id/interest_2"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_below="@+id/interestsPrimary"
+        android:id="@+id/interestsSecondary"
+        android:layout_marginTop="5dp"
+        style="@style/LayoutInterest">
+        <TextView
+            style="@style/TextViewInterest"
+            android:id="@+id/interest_3"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="15dp"/>
+        <TextView
+            android:id="@+id/interest_4"
+            style="@style/TextViewInterest"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</RelativeLayout>

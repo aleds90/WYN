@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_home"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layout_toolbar_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/tb_search_top"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/blue">
+
+                <ImageView
+                    android:id="@+id/img_search_ic_navigation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_navigation_bar" />
+
+                <TextView
+                    android:id="@+id/text_view_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ToolbarTitle"
+                    android:text="@string/label_search"/>
+
+            </android.support.v7.widget.Toolbar>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_search_center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_toolbar_top"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/actv_search_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_findname" />
+
+            <AutoCompleteTextView
+                android:id="@+id/actv_search_role"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_findrole" />
+
+            <AutoCompleteTextView
+                android:id="@+id/actv_search_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_findcity"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <AutoCompleteTextView
+                    android:id="@+id/actv_search_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_findprice"
+                    android:focusableInTouchMode="false"
+                    android:focusable="false"/>
+
+                <SeekBar
+                    android:id="@+id/sb_search_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_search_startsearch"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                style="@style/ButtonSyle"
+                android:text="@string/label_startsearch" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layout_center"
+            android:layout_above="@+id/layout_toolbar_bot">
+
+            <ListView
+                android:id="@+id/lv_search_resultsearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </ListView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_toolbar_bot"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/tb_home_activities"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/blue">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/ib_search_home"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_home"
+                        android:layout_marginRight="100dp" />
+
+                    <ImageButton
+                        android:id="@+id/ib_search_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_search"
+                        android:layout_marginRight="100dp" />
+
+                    <ImageButton
+                        android:id="@+id/ib_search_relation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_relation" />
+
+                    <ImageButton
+                        android:id="@+id/ib_search_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_profile"
+                        android:layout_marginLeft="100dp"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

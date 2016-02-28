@@ -1,0 +1,82 @@
+<resources>
+    <string name="label_app_name" translatable="false">WYN</string>
+    <string name="label_email">Email</string>
+    <string name="label_password">Password</string>
+    <string name="label_login">Log-in</string>
+    <string name="label_registration_worker">Register as freelancer</string>
+    <string name="label_registration_visitor">Register as visitor</string>
+    <string name="label_or">or</string>
+    <string name="label_registration">Registration</string>
+    <string name="label_name">Name</string>
+    <string name="label_surname">Surname</string>
+    <string name="hint_name">Your name</string>
+    <string name="hint_surname">Your surname</string>
+    <string name="hint_password">Choose password</string>
+    <string name="hint_email">Your email</string>
+    <string name="label_terms"><![CDATA[I Agree To The Terms & Conditions]]></string>
+    <string name="label_back">Back</string>
+    <string name="title_activity_home" translatable="false">HomeActivity</string>
+    <string name="toast_registration_error">Registration Error</string>
+    <string name="label_profession">Profession</string>
+    <string-array name="roles">
+        <item>@string/hint_role</item>
+        <item>Animatore</item>
+        <item>Barista</item>
+        <item>Barman</item>
+        <item>Barbiere</item>
+        <item>Baby sitter</item>
+        <item>Cameriere</item>
+        <item>Conducente</item>
+        <item>Cuoco</item>>
+        <item>Designer</item>
+        <item>Dietista</item>
+        <item>Elettricista</item>
+        <item>Estetista</item>
+        <item>Fioraio</item>
+        <item>Fisioterapista</item>
+        <item>Fotografo</item>
+        <item>Grafico pubblicitario</item>
+        <item>Guardia del corpo</item>
+        <item>Guida Turistica</item>
+        <item>Giardiniere</item>
+        <item>HairStyler</item>
+        <item>Idraulico</item>
+        <item>Infermiere</item>
+        <item>Make Up Artist</item>
+        <item>Maestro di sci</item>
+        <item>Modello</item>
+        <item>Muratore</item>
+        <item>Nutrizionista</item>
+        <item>Nutrizionista animale</item>
+        <item>Preparatore sportivo</item>
+        <item>Parrucchiere</item>
+        <item>Pittore</item>
+        <item>Procuratore sportivo</item>
+        <item>Pasticciere</item>
+        <item>Personal Trainer</item>
+        <item>Programmatore</item>
+        <item>Sarto</item>
+        <item>Social-Media Manager</item>
+        <item>Tassista</item>
+        <item>Tutor per ripetizioni</item>
+        <item>Veterinario</item>
+        <item>Video-Maker</item>
+        <item>Wedding Planner</item>
+        <item>Altro</item>
+    </string-array>
+    <string name="hint_role">Your role</string>
+    <string name="label_rate">Rate</string>
+    <string name="hint_rate">Your avarage rate</string>
+    <string name="label_city">City</string>
+    <string name="hint_city">Your city</string>
+    <string name="label_birthday">Birthday</string>
+    <string name="hint_birthday">Your birthday</string>
+    <string name="label_home">Home</string>
+    <string name="toast_login_error">Incorrect credentials, please try again.</string>
+    <string name="hint_findname">Find by name</string>
+    <string name="hint_findrole">Find by role</string>
+    <string name="hint_findcity">Find by city</string>
+    <string name="hint_findprice">Find by price</string>
+    <string name="label_startsearch">Start research</string>
+    <string name="label_search">Research</string>
+</resources>
