@@ -34,11 +34,11 @@
     </style>
     <!-- Base Adapter friends info layout theme. -->
     <style name="LayoutInterest">
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_marginTop">14dp</item>
-    <item name="android:layout_marginLeft">15dp</item>
-    <item name="android:orientation">horizontal</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">14dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:orientation">horizontal</item>
     </style>
     <!-- Base Adapter friends info textview theme. -->
     <style name="TextViewInterest">
@@ -47,5 +47,30 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+
+    <style name="TextViewProfile">
+        <item name="android:textSize">24dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/darkBlue</item>
+    </style>
+
+    <style name="TextViewProfile2">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/darkBlue</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="FloatingActionButton">
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_above">@id/layout_toolbar_bot</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:tint">@color/white</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

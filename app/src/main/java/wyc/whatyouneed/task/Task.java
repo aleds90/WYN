@@ -40,17 +40,12 @@ public class Task {
     final static String URL_LOGIN_REQUEST = "http://njsao.pythonanywhere.com/login";
     final static String URL_REGISTRATION_REQUEST = "http://njsao.pythonanywhere.com/insert_user";
 
-
-
-
-
     public static String performPostCall(String requestURL,HashMap<String,
             String> postDataParams, String refreshToken, String connType) {
         URL url;
         String response = "";
         try {
             url = new URL(requestURL);
-
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(15000);
             conn.setConnectTimeout(15000);
@@ -64,7 +59,6 @@ public class Task {
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
             writer.write(getPostDataString(postDataParams));
-
             writer.flush();
             writer.close();
             os.close();
@@ -74,17 +68,14 @@ public class Task {
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 while ((line = br.readLine()) != null) {
                     response += line;
-
                 }
 
             } else {
                 response = "";
-
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return response;
     }
 
@@ -103,13 +94,10 @@ public class Task {
             result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
 
         }
-
         return result.toString();
     }
 
-    //// TODO: Fix Authorization on HttpConnection
     public static class LoginTask extends AsyncTask<String, Void, Void> {
-
         private Client client;
         private User user;
         private ClientLocalStore clientlocalstore;
@@ -269,6 +257,8 @@ public class Task {
             }
         }
     }
+
+
 }
 
 

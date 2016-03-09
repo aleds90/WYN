@@ -8,11 +8,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import wyc.whatyouneed.R;
 import wyc.whatyouneed.entity.Client;
 import wyc.whatyouneed.entity.ClientLocalStore;
 import wyc.whatyouneed.entity.User;
 import wyc.whatyouneed.task.Task;
+import wyc.whatyouneed.task.VolleyTask;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     ClientLocalStore localStore;
@@ -25,7 +38,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         findViewById();
-
     }
 
     @Override
@@ -37,6 +49,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 user.setEmail(et_email.getText().toString());
                 user.setPassword(et_password.getText().toString());
                 Client client = new Client("Ciao", "Ciao", "Password");
+                //LOGIN_TASK("http://njsao.pythonanywhere.com/login",client,user);
                 new Task.LoginTask(client, user, localStore,getApplicationContext()).execute();
                 break;
 
@@ -68,4 +81,43 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tv_registration_worker.setOnClickListener(this);
 
     }
+
+    public void LOGIN_TASK(String url, final Client client, final User user){
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            System.out.println(jsonResponse);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<>();
+                // the POST parameters:
+                params.put("random_id", client.getRANDOM_ID());
+                params.put("secret_id",client.getSECRET_ID());
+                params.put("grant_types", client.getGRANT_TYPES());
+                params.put("email", user.getEmail());
+                params.put("password", user.getPassword());
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getApplicationContext()).add(postRequest);
+    }
+
 }

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="wyc.whatyouneed">
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_wyn"
         android:label="@string/label_app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.LoginActivity"
+        <activity
+            android:name=".activity.LoginActivity"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,18 +20,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterWorkerActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".activity.RegisterVisitorActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".activity.HomeActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".activity.ProfileActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".activity.SearchActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".activity.RelationActivity"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".activity.RegisterWorkerActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.RegisterVisitorActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.HomeActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.SearchActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.RelationTest"
+            android:label="@string/title_activity_relation_test"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

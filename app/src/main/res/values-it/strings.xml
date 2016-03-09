@@ -34,4 +34,14 @@
     <string name="hint_findprice">Ricerca per prezzo</string>
     <string name="label_startsearch">Avvia Ricerca</string>
     <string name="label_search">Ricerca</string>
+    <string name="label_profile">Profilo</string>
+    <string name="label_relations">Relazioni</string>
+    <string name="label_feedback">Feedback:</string>
+    <string name="label_followeed">Seguiti:</string>
+    <string name="label_followers">Seguaci:</string>
+    <string name="label_announcement">Annuncio:</string>
+    <string name="label_description">Descrizione:</string>
+    <string name="label_profile_email">Email:</string>
+    <string name="label_profile_password">Password:</string>
+    <string name="label_contacts">Contatti</string>
 </resources>

@@ -18,6 +18,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.yalantis.flipviewpager.adapter.BaseFlipAdapter;
 import com.yalantis.flipviewpager.utils.FlipSettings;
@@ -53,7 +58,7 @@ import wyc.whatyouneed.entity.User;
 import wyc.whatyouneed.task.Task;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
-    final static String URL_USERS_FLIP_LIST_REQUEST = "http://njsao.pythonanywhere.com/get_users/";
+    final static String URL_USERS_FLIP_LIST_REQUEST = "http://njsao.pythonanywhere.com/get_users/?email=";
     private static final long RIPPLE_DURATION = 250;
     ImageButton ib_home,ib_search,ib_relation,ib_profile;
     ImageView iv_navigation;
@@ -69,10 +74,49 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_home);
         findViewById();
         startingTasks();
+        //GET_USERS(getApplicationContext(),URL_USERS_FLIP_LIST_REQUEST+localStore.getUser().getEmail());
+    }
+    public void GET_USERS(Context context, String url) {
+
+        StringRequest getRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            String message = jsonResponse.getString("message_count");
+                            JSONArray usersArray = jsonResponse.getJSONArray("users");
+                            int count = Integer.parseInt(message);
+                            ArrayList<User> usersList = new ArrayList<>();
+                            for (int i = 0; i < usersArray.length(); i++) {
+                                User user = null;
+                                try {
+                                    user = new Gson().fromJson(usersArray.get(i).toString(), User.class);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                usersList.add(user);
+                            }
+                            FlipSettings settings = new FlipSettings.Builder().defaultPage(1).build();
+                            lv_users.setAdapter(new ListFlipUser(getApplicationContext(), usersList, settings));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                }
+        );
+        Volley.newRequestQueue(context).add(getRequest);
     }
 
     private void startingTasks() {
         new UsersFipListTask(localStore.getUser(),getApplicationContext(), lv_users).execute();
+
     }
 
     @Override
@@ -83,7 +127,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(searchIntent);
                 break;
             case R.id.ib_home_relation:
-                Intent relationIntent = new Intent(this, RelationActivity.class);
+                Intent relationIntent = new Intent(this, RelationTest.class);
                 startActivity(relationIntent);
                 break;
             case R.id.ib_home_profile:
@@ -270,14 +314,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected Void doInBackground(Void... params) {
             result = Task.performPostCall("http://njsao.pythonanywhere.com/get_users/?email=a", hashMap,"","GET");
-//            try {
-//                URLConnection urlConnection = new URL("http://njsao.pythonanywhere.com/get_users/?email=a").openConnection();
-//                urlConnection.setRequestProperty("Accept-Charset", "UTF-8");
-//                InputStream response = urlConnection.getInputStream();
-//                System.out.println(response);
-//            } catch (java.io.IOException e) {
-//                e.printStackTrace();
-//            }
             return null;
         }
 
@@ -300,13 +336,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     users.add(user);
                 }
                 FlipSettings settings = new FlipSettings.Builder().defaultPage(1).build();
-                listView.setAdapter(new ListFlipUser(getApplicationContext() , users, settings));
+                listView.setAdapter(new ListFlipUser(getApplicationContext(), users, settings));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
         }
-
     }
 }
 
