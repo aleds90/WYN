@@ -36,9 +36,19 @@
             android:name=".activity.SearchActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activity.RelationTest"
+            android:name=".activity.RelationActivity"
             android:label="@string/title_activity_relation_test"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.UserActivity">
+
+        </activity>
+        <activity android:name=".activity.LocationActivity">
+
+        </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
     </application>
 
 </manifest>

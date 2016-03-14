@@ -1,10 +1,8 @@
 package wyc.whatyouneed.activity;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,18 +16,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import wyc.whatyouneed.R;
 import wyc.whatyouneed.adpter.AdapterListUser;
 import wyc.whatyouneed.entity.User;
 
-public class RelationTest extends AppCompatActivity {
+public class RelationActivity extends AppCompatActivity implements View.OnClickListener {
+
+    ImageButton ib_home,ib_search,ib_relation,ib_profile;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -49,7 +48,8 @@ public class RelationTest extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_relation_test);
+        setContentView(R.layout.activity_relation);
+        findViewById();
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -61,6 +61,16 @@ public class RelationTest extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+    }
+
+    private void findViewById() {
+
+        ib_home    = (ImageButton)findViewById(R.id.ib_relation_home);
+        ib_home.setOnClickListener(this);
+        ib_search    = (ImageButton)findViewById(R.id.ib_relation_search);
+        ib_search.setOnClickListener(this);
+        ib_profile    = (ImageButton)findViewById(R.id.ib_relation_profile);
+        ib_profile.setOnClickListener(this);
     }
 
 
@@ -84,6 +94,25 @@ public class RelationTest extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ib_relation_home:
+                Intent homeIntent = new Intent(this, HomeActivity.class);
+                startActivity(homeIntent);
+                break;
+            case R.id.ib_relation_search:
+                Intent searchIntent = new Intent(this, SearchActivity.class);
+                startActivity(searchIntent);
+                break;
+            case R.id.ib_relation_profile:
+                Intent profileIntent = new Intent(this, ProfileActivity.class);
+                startActivity(profileIntent);
+                break;
+        }
+
     }
 
     /**

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -31,31 +29,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-
-import javax.net.ssl.HttpsURLConnection;
 
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 import wyc.whatyouneed.R;
 import wyc.whatyouneed.entity.ClientLocalStore;
 import wyc.whatyouneed.entity.User;
 import wyc.whatyouneed.task.Task;
+import wyc.whatyouneed.task.VolleyTask;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
     final static String URL_USERS_FLIP_LIST_REQUEST = "http://njsao.pythonanywhere.com/get_users/?email=";
@@ -75,7 +59,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findViewById();
         startingTasks();
         //GET_USERS(getApplicationContext(),URL_USERS_FLIP_LIST_REQUEST+localStore.getUser().getEmail());
+
     }
+
+
     public void GET_USERS(Context context, String url) {
 
         StringRequest getRequest = new StringRequest(Request.Method.GET, url,
@@ -127,7 +114,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(searchIntent);
                 break;
             case R.id.ib_home_relation:
-                Intent relationIntent = new Intent(this, RelationTest.class);
+                Intent relationIntent = new Intent(this, RelationActivity.class);
                 startActivity(relationIntent);
                 break;
             case R.id.ib_home_profile:
@@ -165,6 +152,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onRefresh() {
                 new UsersFipListTask(localStore.getUser(),getApplicationContext(), lv_users).execute();
+
             }
         });
     }
@@ -337,11 +325,38 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 FlipSettings settings = new FlipSettings.Builder().defaultPage(1).build();
                 listView.setAdapter(new ListFlipUser(getApplicationContext(), users, settings));
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        User itemUser = (User) listView.getAdapter().getItem(position);
+
+                        Intent intent = new Intent(HomeActivity.this, UserActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        passUserByIntent(intent, itemUser);
+                        getApplicationContext().startActivity(intent);
+                    }
+                });
+                lo_refresh.setRefreshing(false);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
         }
+        private void passUserByIntent(Intent intent, User user) {
+            intent.putExtra("id_user", user.getId_user());
+            intent.putExtra("name", user.getName());
+            intent.putExtra("cognome", user.getSurname());
+            intent.putExtra("email", user.getEmail());
+            intent.putExtra("city", user.getCity());
+            intent.putExtra("role", user.getRole());
+            intent.putExtra("bday", user.getBday());
+            intent.putExtra("rate", user.getRate());
+            intent.putExtra("status", user.isActive());
+            intent.putExtra("description", user.getDescription());
+            intent.putExtra("avatar", user.getAvatar());
+        }
     }
+
+
 }
 

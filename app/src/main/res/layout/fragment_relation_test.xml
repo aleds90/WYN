@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="wyc.whatyouneed.activity.RelationTest$PlaceholderFragment">
+    tools:context=".activity.RelationActivity$PlaceholderFragment">
 
     <ListView
         android:id="@+id/section_label"

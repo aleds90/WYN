@@ -32,6 +32,8 @@ public class VolleyTask {
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
                             responseTv = response;
+
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -45,6 +47,10 @@ public class VolleyTask {
                 }
         );
         Volley.newRequestQueue(context).add(getRequest);
+        return null;
+    }
+
+    public String getResponse (){
         return responseTv;
     }
 }

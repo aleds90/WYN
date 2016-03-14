@@ -8,6 +8,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import wyc.whatyouneed.R;
@@ -146,6 +147,56 @@ public class User implements Serializable {
         interests.add(city);
         interests.add(status);
         return interests;
+    }
+
+    public int getAvatarID(String role){
+
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        hashMap.put("Animatore",R.drawable.ic_profession_clown);
+        hashMap.put("Barista",R.drawable.ic_profession_waiter);
+        hashMap.put("Barman",R.drawable.ic_profession_waiter);
+        hashMap.put("Cameriere",R.drawable.ic_profession_waiter);
+        hashMap.put("Barbiere",R.drawable.ic_profession_hairdresser);
+        hashMap.put("Estetista",R.drawable.ic_profession_hairdresser);
+        hashMap.put("Parrucchiere",R.drawable.ic_profession_hairdresser);
+        hashMap.put("HairStyler",R.drawable.ic_profession_hairdresser);
+        hashMap.put("Make Up Artist",R.drawable.ic_profession_hairdresser);
+        hashMap.put("Sarto",R.drawable.ic_profession_hairdresser);
+        hashMap.put("Baby sitter",R.drawable.ic_profession_waitress);
+        hashMap.put("Conducente",R.drawable.ic_profession_driver);
+        hashMap.put("Tassista",R.drawable.ic_profession_driver);
+        hashMap.put("Cuoco",R.drawable.ic_profession_chef);
+        hashMap.put("Pasticciere",R.drawable.ic_profession_chef);
+        hashMap.put("Wedding Planner",R.drawable.ic_profession_planner);
+        hashMap.put("Designer",R.drawable.ic_profession_artist);
+        hashMap.put("Grafico pubblicitario",R.drawable.ic_profession_artist);
+        hashMap.put("Pittore",R.drawable.ic_profession_artist);
+        hashMap.put("Dietista",R.drawable.ic_profession_doctor);
+        hashMap.put("Fisioterapista",R.drawable.ic_profession_doctor);
+        hashMap.put("Infermiere",R.drawable.ic_profession_doctor);
+        hashMap.put("Nutrizionista",R.drawable.ic_profession_doctor);
+        hashMap.put("Nutrizionista animale",R.drawable.ic_profession_doctor);
+        hashMap.put("Veterinario",R.drawable.ic_profession_doctor);
+        hashMap.put("Elettricista",R.drawable.ic_profession_fixer);
+        hashMap.put("Idraulico",R.drawable.ic_profession_fixer);
+        hashMap.put("Muratore",R.drawable.ic_profession_fixer);
+        hashMap.put("Fotografo",R.drawable.ic_profession_photograph);
+        hashMap.put("Video-Maker",R.drawable.ic_profession_photograph);
+        hashMap.put("Social-Media Manager",R.drawable.ic_profession_photograph);
+        hashMap.put("Guardia del corpo",R.drawable.ic_profession_bodyguard);
+        hashMap.put("Guida Turistica",R.drawable.ic_profession_guide);
+        hashMap.put("Guida",R.drawable.ic_profession_guide);
+        hashMap.put("Giardiniere",R.drawable.ic_profession_lumberjack);
+        hashMap.put("Maestro di sci",R.drawable.ic_profession_ski);
+        hashMap.put("Fioraio",R.drawable.ic_profession_florist);
+        hashMap.put("Modello",R.drawable.ic_profession_actor);
+        hashMap.put("Preparatore sportivo",R.drawable.ic_profession_atletic);
+        hashMap.put("Procuratore sportivo",R.drawable.ic_profession_atletic);
+        hashMap.put("Personal Trainer",R.drawable.ic_profession_atletic);
+        hashMap.put("Programmatore",R.drawable.ic_profession_nerd);
+        hashMap.put("Tutor per ripetizioni",R.drawable.ic_profession_teacher);
+
+        return hashMap.get(role);
     }
 
     public void getDrawableAvatar(String role,int avatar,ImageView imageView,Context context,String url) {

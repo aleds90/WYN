@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/white"
-    tools:context="wyc.whatyouneed.activity.RelationTest">
+    tools:context=".activity.RelationActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -77,28 +77,28 @@
                 android:gravity="center">
 
                 <ImageButton
-                    android:id="@+id/ib_search_home"
+                    android:id="@+id/ib_relation_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_home"
                     android:layout_marginRight="50dp" />
 
                 <ImageButton
-                    android:id="@+id/ib_search_search"
+                    android:id="@+id/ib_relation_search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_search"
                     android:layout_marginRight="50dp" />
 
                 <ImageButton
-                    android:id="@+id/ib_search_relation"
+                    android:id="@+id/ib_relation_relation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_relation"
                     android:backgroundTint="@color/darkBlue"/>
 
                 <ImageButton
-                    android:id="@+id/ib_search_profile"
+                    android:id="@+id/ib_relation_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_profile"

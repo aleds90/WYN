@@ -1,5 +1,6 @@
 package wyc.whatyouneed.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
@@ -68,6 +69,21 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ib_search_home:
+                Intent homeIntent = new Intent(this, HomeActivity.class);
+                startActivity(homeIntent);
+                break;
+            case R.id.ib_search_profile:
+                Intent profileIntent = new Intent(this, ProfileActivity.class);
+                startActivity(profileIntent);
+                break;
+            case R.id.ib_search_relation:
+                Intent relationIntent = new Intent(this, RelationActivity.class);
+                startActivity(relationIntent);
+                break;
+        }
+
 
     }
 }
