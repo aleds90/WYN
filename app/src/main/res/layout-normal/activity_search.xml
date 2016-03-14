@@ -38,66 +38,64 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/layout_search_center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/layout_toolbar_top"
-            android:orientation="vertical"
             android:padding="5dp">
-
-            <AutoCompleteTextView
-                android:id="@+id/actv_search_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_findname" />
-
-            <AutoCompleteTextView
-                android:id="@+id/actv_search_role"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_findrole" />
-
-            <AutoCompleteTextView
-                android:id="@+id/actv_search_city"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_findcity"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
+                android:layout_height="match_parent"
+                android:orientation="vertical">
                 <AutoCompleteTextView
-                    android:id="@+id/actv_search_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_findprice"
-                    android:focusableInTouchMode="false"
-                    android:focusable="false"/>
-
-                <SeekBar
-                    android:id="@+id/sb_search_price"
+                    android:id="@+id/actv_search_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
-
+                    android:hint="@string/hint_findname" />
+                <AutoCompleteTextView
+                    android:id="@+id/actv_search_role"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_findrole" />
+                <AutoCompleteTextView
+                    android:id="@+id/actv_search_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_findcity"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <AutoCompleteTextView
+                        android:id="@+id/actv_search_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_findprice"
+                        android:focusableInTouchMode="false"
+                        android:focusable="false"/>
+                    <SeekBar
+                        android:id="@+id/sb_search_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
+                </LinearLayout>
             </LinearLayout>
+        </FrameLayout>
 
-            <Button
-                android:id="@+id/btn_search_startsearch"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                style="@style/ButtonSyle"
-                android:text="@string/label_startsearch" />
-
-        </LinearLayout>
+        <Button
+            android:layout_below="@id/layout_search_center"
+            android:id="@+id/btn_search_startsearch"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            style="@style/ButtonSyle"
+            android:text="@string/label_startsearch" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/layout_search_center"
+            android:layout_below="@+id/btn_search_startsearch"
             android:layout_above="@+id/layout_toolbar_bot">
 
             <ListView

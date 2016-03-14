@@ -7,6 +7,7 @@ import android.text.Layout;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,7 +19,7 @@ import wyc.whatyouneed.entity.ClientLocalStore;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
     private static final long RIPPLE_DURATION = 250;
-    LinearLayout lo_center;
+    FrameLayout lo_center;
     AutoCompleteTextView actv_name,actv_role,actv_price,actv_city;
     ImageButton ib_home,ib_search,ib_relation,ib_profile;
     SeekBar sb_price;
@@ -37,7 +38,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private void findViewById() {
         localStore = new ClientLocalStore(this);
 
-        lo_center = (LinearLayout)findViewById(R.id.layout_search_center);
+        lo_center = (FrameLayout)findViewById(R.id.layout_search_center);
 
         iv_navigation = (ImageView)findViewById(R.id.img_search_ic_navigation);
 
@@ -81,6 +82,16 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.ib_search_relation:
                 Intent relationIntent = new Intent(this, RelationActivity.class);
                 startActivity(relationIntent);
+                break;
+            case R.id.btn_search_startsearch:
+                if (btn_startsearch.getText() == (getResources().getString(R.string.label_startsearch))) {
+                    lo_center.setVisibility(View.GONE);
+                    btn_startsearch.setText(getResources().getString(R.string.label_backtofilter));
+                }else {
+                    lo_center.setVisibility(View.VISIBLE);
+                    btn_startsearch.setText(getResources().getString(R.string.label_startsearch));
+                }
+
                 break;
         }
 
