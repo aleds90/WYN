@@ -32,7 +32,7 @@ public class AdapterListUser extends ArrayAdapter<User>{
         final User user = users.get(position);
 
         ImageView avatar = (ImageView)view.findViewById(R.id.img_adp_listuser_avatar);
-        avatar.setImageDrawable(view.getResources().getDrawable(R.drawable.ic_profession_artist));
+        avatar.setImageDrawable(view.getResources().getDrawable(user.getAvatarID(user.getRole())));
 
         TextView name = (TextView)view.findViewById(R.id.tv_adp_listuser_name);
         name.setText(user.getName());

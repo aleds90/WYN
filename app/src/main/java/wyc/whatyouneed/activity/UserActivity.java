@@ -11,7 +11,7 @@ import wyc.whatyouneed.R;
 import wyc.whatyouneed.entity.User;
 
 public class UserActivity extends AppCompatActivity {
-    TextView name, surname, bday, role, city, description, notice, feedback, followers;
+    TextView name, surname, bday, role, city, description, notice, feedback, followers, title;
     FloatingActionButton message, add_feedback, follow, location, warning;
     ImageView avatar, back;
 
@@ -25,6 +25,9 @@ public class UserActivity extends AppCompatActivity {
     private void findViewById() {
         Bundle bundle = getIntent().getExtras();
         User user = getUserBybundle(bundle);
+
+        title = (TextView)findViewById(R.id.tv_user_toolbar_title);
+        title.setText(user.getName());
 
         name = (TextView)findViewById(R.id.tv_user_name);
         name.setText(user.getName());
