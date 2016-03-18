@@ -1,6 +1,8 @@
 package wyc.whatyouneed.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
+import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -39,10 +42,11 @@ import wyc.whatyouneed.R;
 import wyc.whatyouneed.entity.ClientLocalStore;
 import wyc.whatyouneed.entity.User;
 import wyc.whatyouneed.task.Task;
+import wyc.whatyouneed.task.Utility;
 import wyc.whatyouneed.task.VolleyTask;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
-    final static String URL_USERS_FLIP_LIST_REQUEST = "http://njsao.pythonanywhere.com/get_users/?email=";
+    String url_get_users = "http://njsao.pythonanywhere.com/get_users/?email=";
     private static final long RIPPLE_DURATION = 250;
     ImageButton ib_home,ib_search,ib_relation,ib_profile;
     ImageView iv_navigation;
@@ -58,51 +62,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_home);
         findViewById();
         startingTasks();
-        //GET_USERS(getApplicationContext(),URL_USERS_FLIP_LIST_REQUEST+localStore.getUser().getEmail());
-
-    }
-
-
-    public void GET_USERS(Context context, String url) {
-
-        StringRequest getRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            String message = jsonResponse.getString("message_count");
-                            JSONArray usersArray = jsonResponse.getJSONArray("users");
-                            int count = Integer.parseInt(message);
-                            ArrayList<User> usersList = new ArrayList<>();
-                            for (int i = 0; i < usersArray.length(); i++) {
-                                User user = null;
-                                try {
-                                    user = new Gson().fromJson(usersArray.get(i).toString(), User.class);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                usersList.add(user);
-                            }
-                            FlipSettings settings = new FlipSettings.Builder().defaultPage(1).build();
-                            lv_users.setAdapter(new ListFlipUser(getApplicationContext(), usersList, settings));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                    }
-                }
-        );
-        Volley.newRequestQueue(context).add(getRequest);
     }
 
     private void startingTasks() {
-        new UsersFipListTask(localStore.getUser(),getApplicationContext(), lv_users).execute();
+        this.url_get_users = this.url_get_users+localStore.getUser().getEmail();
+
+        volley_get_users();
+        //new UsersFipListTask(localStore.getUser(),getApplicationContext(), lv_users).execute();
 
     }
 
@@ -151,13 +117,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         lo_refresh.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new UsersFipListTask(localStore.getUser(),getApplicationContext(), lv_users).execute();
+                volley_get_users();
+                //new UsersFipListTask(localStore.getUser(),getApplicationContext(), lv_users).execute();
 
             }
         });
     }
 
-   class ListFlipUser extends BaseFlipAdapter<User> {
+    class ListFlipUser extends BaseFlipAdapter<User> {
         private final int PAGES = 3;
         private int[] IDS_INTEREST = {R.id.interest_1, R.id.interest_2, R.id.interest_3, R.id.interest_4};
 
@@ -279,82 +246,73 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public class UsersFipListTask extends AsyncTask<Void, Void, Void> {
-
-        private User user;
-        private Context context;
-        private HashMap<String, String> hashMap = new HashMap<String, String>();
-        private String result;
-        private ArrayList<User> users;
-        private ListView listView;
-
-        public UsersFipListTask(User user, Context context,ListView listView) {
-            this.user = user;
-            this.context = context;
-            this.listView = listView;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            result = Task.performPostCall("http://njsao.pythonanywhere.com/get_users/?email=a", hashMap,"","GET");
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            JSONObject jsonObject = null;
-            try {
-                jsonObject = new JSONObject(result);
-                String message = jsonObject.getString("message_count");
-                JSONArray usersArray = jsonObject.getJSONArray("users");
-                int count = Integer.parseInt(message);
-                users = new ArrayList<>();
-                for (int i = 0; i < usersArray.length(); i++) {
-                    User user = null;
-                    try {
-                        user = new Gson().fromJson(usersArray.get(i).toString(), User.class);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    users.add(user);
-                }
-                FlipSettings settings = new FlipSettings.Builder().defaultPage(1).build();
-                listView.setAdapter(new ListFlipUser(getApplicationContext(), users, settings));
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    public void volley_get_users(){
+        StringRequest getRequest = new StringRequest(Request.Method.GET, this.url_get_users,
+                new Response.Listener<String>() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        User itemUser = (User) listView.getAdapter().getItem(position);
+                    public void onResponse(String response) {
+                        JSONObject jsonObject = null;
+                        try {
+                            jsonObject = new JSONObject(response);
+                            String message = jsonObject.getString("message_count");
+                            JSONArray usersArray = jsonObject.getJSONArray("users");
+                            int count = Integer.parseInt(message);
+                            ArrayList<User> users = new ArrayList<>();
+                            for (int i = 0; i < usersArray.length(); i++) {
+                                User user = null;
+                                try {
+                                    user = new Gson().fromJson(usersArray.get(i).toString(), User.class);
+                                } catch (JSONException e) {
+                                    new Utility().get_generic_alert_dialog(HomeActivity.this, "Check your connection").show();
+                                    e.printStackTrace();
+                                }
+                                users.add(user);
+                            }
+                            FlipSettings settings = new FlipSettings.Builder().defaultPage(1).build();
+                            lv_users.setAdapter(new ListFlipUser(getApplicationContext(), users, settings));
+                            lv_users.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    User itemUser = (User) lv_users.getAdapter().getItem(position);
 
-                        Intent intent = new Intent(HomeActivity.this, UserActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        passUserByIntent(intent, itemUser);
-                        getApplicationContext().startActivity(intent);
+                                    Intent intent = new Intent(HomeActivity.this, UserActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    passUserByIntent(intent, itemUser);
+                                    getApplicationContext().startActivity(intent);
+                                }
+                            });
+                            lo_refresh.setRefreshing(false);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            new Utility().get_generic_alert_dialog(HomeActivity.this, "Check your connection").show();
+                            System.exit(0);
+
+                        }
+
                     }
-                });
-                lo_refresh.setRefreshing(false);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                }
+        );
+        Volley.newRequestQueue(getApplicationContext()).add(getRequest);
+    }
 
-        }
-        private void passUserByIntent(Intent intent, User user) {
-            intent.putExtra("id_user", user.getId_user());
-            intent.putExtra("name", user.getName());
-            intent.putExtra("cognome", user.getSurname());
-            intent.putExtra("email", user.getEmail());
-            intent.putExtra("city", user.getCity());
-            intent.putExtra("role", user.getRole());
-            intent.putExtra("bday", user.getBday());
-            intent.putExtra("rate", user.getRate());
-            intent.putExtra("status", user.isActive());
-            intent.putExtra("description", user.getDescription());
-            intent.putExtra("avatar", user.getAvatar());
-        }
+    private void passUserByIntent(Intent intent, User user) {
+        intent.putExtra("id_user", user.getId_user());
+        intent.putExtra("name", user.getName());
+        intent.putExtra("cognome", user.getSurname());
+        intent.putExtra("email", user.getEmail());
+        intent.putExtra("city", user.getCity());
+        intent.putExtra("role", user.getRole());
+        intent.putExtra("bday", user.getBday());
+        intent.putExtra("rate", user.getRate());
+        intent.putExtra("status", user.isActive());
+        intent.putExtra("description", user.getDescription());
+        intent.putExtra("avatar", user.getAvatar());
     }
 
 

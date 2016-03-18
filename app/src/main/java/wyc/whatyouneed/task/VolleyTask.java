@@ -1,23 +1,15 @@
 package wyc.whatyouneed.task;
 
 import android.content.Context;
-import android.widget.ListView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.yalantis.flipviewpager.utils.FlipSettings;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-
-import wyc.whatyouneed.entity.User;
 
 public class VolleyTask {
 
@@ -54,3 +46,6 @@ public class VolleyTask {
         return responseTv;
     }
 }
+
+
+

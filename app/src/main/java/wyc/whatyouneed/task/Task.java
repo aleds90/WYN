@@ -134,7 +134,7 @@ public class Task {
             handleLoginResponse(response, clientlocalstore, context);
         }
 
-        private void handleLoginResponse(Response responseServer, ClientLocalStore clientlocalstore, Context context) {
+        public void handleLoginResponse(Response responseServer, ClientLocalStore clientlocalstore, Context context) {
             switch (responseServer.getType()) {
                 case "2":
                     User user = responseServer.getUser();
@@ -145,8 +145,9 @@ public class Task {
                     context.startActivity(intent);
                     break;
                 case "3":
-                    Toast toast = Toast.makeText(context, context.getString(R.string.toast_login_error), Toast.LENGTH_LONG);
-                    toast.show();
+                    //new Utility().get_generic_alert_dialog(context, "Wrong try again").show();
+                    //Toast toast = Toast.makeText(context, context.getString(R.string.toast_login_error), Toast.LENGTH_LONG);
+                    //toast.show();
                     break;
                 case "4":
                     User user1 = clientlocalstore.getUser();
