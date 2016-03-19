@@ -9,6 +9,10 @@ import android.content.DialogInterface;
  */
 public class Utility {
 
+    public static String url_get_users = "http://njsao.pythonanywhere.com/get_users/?email=";
+    public static String url_login = "http://njsao.pythonanywhere.com/login";
+
+
     public AlertDialog get_generic_alert_dialog(Context context, String message){
 
         AlertDialog.Builder alertdialogbuilder =  new AlertDialog.Builder(

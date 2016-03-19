@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -36,9 +37,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 import wyc.whatyouneed.R;
+import wyc.whatyouneed.entity.Client;
 import wyc.whatyouneed.entity.ClientLocalStore;
 import wyc.whatyouneed.entity.User;
 import wyc.whatyouneed.task.Task;
@@ -46,7 +49,6 @@ import wyc.whatyouneed.task.Utility;
 import wyc.whatyouneed.task.VolleyTask;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
-    String url_get_users = "http://njsao.pythonanywhere.com/get_users/?email=";
     private static final long RIPPLE_DURATION = 250;
     ImageButton ib_home,ib_search,ib_relation,ib_profile;
     ImageView iv_navigation;
@@ -61,15 +63,29 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         findViewById();
-        startingTasks();
+        new StartingTasks().execute();
     }
 
-    private void startingTasks() {
-        this.url_get_users = this.url_get_users+localStore.getUser().getEmail();
+    private class  StartingTasks extends AsyncTask<Void, Void, Void> {
 
-        volley_get_users();
-        //new UsersFipListTask(localStore.getUser(),getApplicationContext(), lv_users).execute();
 
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            volley_get_users();
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            volley_login();
+            return null;
+        }
+
+        @Override
+        protected void onCancelled() {
+            new Utility().get_generic_alert_dialog(HomeActivity.this, "Something went wrong, check your Internet connection");
+            System.exit(0);
+        }
     }
 
     @Override
@@ -247,7 +263,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void volley_get_users(){
-        StringRequest getRequest = new StringRequest(Request.Method.GET, this.url_get_users,
+        StringRequest getRequest = new StringRequest(Request.Method.GET, Utility.url_get_users+localStore.getUser().getEmail(),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -299,6 +315,76 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 }
         );
         Volley.newRequestQueue(getApplicationContext()).add(getRequest);
+    }
+
+    public void volley_login() {
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, Utility.url_login,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            wyc.whatyouneed.entity.Response result = new Gson().fromJson(response, wyc.whatyouneed.entity.Response.class);
+                            handleLoginResponse(result, localStore, getApplicationContext());
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                // the POST parameters:
+                params.put("random_id", "Ciao");
+                params.put("secret_id", "Ciao");
+                params.put("grant_types", "Refresh");
+                params.put("email", localStore.getUser().getEmail());
+                params.put("password", localStore.getUser().getPassword());
+                Log.i("RFRESH", localStore.getClient().getRefreshToken());
+                params.put("Authorization", localStore.getClient().getRefreshToken());
+
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getApplicationContext()).add(postRequest);
+    }
+
+    public void handleLoginResponse(wyc.whatyouneed.entity.Response responseServer, ClientLocalStore clientlocalstore, Context context) {
+        System.out.println(responseServer.getType());
+        switch (responseServer.getType()) {
+            case "2":
+                User user = responseServer.getUser();
+                Client client = new Client(responseServer.getAccess_Token(), responseServer.getRefresh_Token(), "");
+                clientlocalstore.storeClientData(client, user);
+                Intent intent = new Intent(context, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                break;
+            case "3":
+                new Utility().get_generic_alert_dialog(HomeActivity.this, "Wrong try again").show();
+                //Toast toast = Toast.makeText(context, context.getString(R.string.toast_login_error), Toast.LENGTH_LONG);
+                //toast.show();
+                break;
+            case "4":
+                User user1 = clientlocalstore.getUser();
+                Client client1 = new Client(responseServer.getAccess_Token(), responseServer.getRefresh_Token(), "");
+                clientlocalstore.storeClientData(client1, user1);
+                break;
+            case "401":
+                Intent intent1 = new Intent(this, LoginActivity.class);
+                startActivity(intent1);
+                break;
+        }
+
     }
 
     private void passUserByIntent(Intent intent, User user) {

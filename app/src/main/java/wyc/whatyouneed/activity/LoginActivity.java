@@ -35,7 +35,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     TextView tv_registration_worker, tv_registration_visitor;
     EditText et_email, et_password;
     Button btn_login;
-    private String url_login = "http://njsao.pythonanywhere.com/login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +86,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void volley_login() {
 
-        StringRequest postRequest = new StringRequest(Request.Method.POST, this.url_login,
+        StringRequest postRequest = new StringRequest(Request.Method.POST, Utility.url_login,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -130,6 +129,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (responseServer.getType()) {
             case "2":
                 User user = responseServer.getUser();
+                System.out.println("ACCESS: " + responseServer.getAccess_Token() + "  REFRESH: " + responseServer.getRefresh_Token());
                 Client client = new Client(responseServer.getAccess_Token(), responseServer.getRefresh_Token(), "");
                 clientlocalstore.storeClientData(client, user);
                 Intent intent = new Intent(context, HomeActivity.class);
