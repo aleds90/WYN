@@ -95,4 +95,7 @@
     <string name="label_contacts">Contacts</string>
     <string name="label_chat" translatable="false">Chat</string>
     <string name="label_backtofilter">Back To Filter</string>
+    <string name="title_edit_profile">Edit Profile</string>
+    <string name="label_corfim">Confirm</string>
+    <string name="label_cancel">Cancel</string>
 </resources>

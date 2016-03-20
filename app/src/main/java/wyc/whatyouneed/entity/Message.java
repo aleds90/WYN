@@ -9,6 +9,7 @@ public class Message {
 
     public Message(){}
 
+
     public int getId_message() {
         return id_message;
     }

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/img_adp_listuser_avatar"
+            android:id="@+id/img_adp_listconversation_avatar"
             android:layout_width="60dip"
             android:layout_height="60dip"/>
 
@@ -26,20 +26,19 @@
         android:layout_marginTop="5dp">
 
         <TextView
-            android:id="@+id/tv_adp_listuser_name"
+            android:id="@+id/tv_adp_listconversation_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="name"
             android:textColor="#040404"
             android:textSize="20dip"
             android:textStyle="bold"
             android:typeface="sans" />
 
         <TextView
-            android:id="@+id/tv_adp_listuser_surname"
+            android:id="@+id/tv_adp_listconversation_surname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="surname"
+
             android:paddingLeft="10dp"
             android:textColor="#040404"
             android:textSize="20dip"
@@ -54,30 +53,22 @@
         android:layout_below="@+id/layoutName"
         android:layout_alignLeft="@+id/layoutName"
         android:id="@+id/linearLayout">
+
         <TextView
-            android:id="@+id/tv_adp_listuser_role"
+            android:id="@+id/tv_adp_listconversation_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvCity"
-            android:layout_alignLeft="@+id/tvCity"
             android:paddingTop="5dip"
-            android:layout_centerHorizontal="true"
-            android:text="professione"
             android:textColor="#343434"
             android:textSize="15dip" />
 
-        <TextView
-            android:id="@+id/tv_adp_listuser_city"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/tvCity"
-            android:layout_alignLeft="@+id/tvCondition"
-            android:paddingLeft="10dp"
-            android:paddingTop="5dip"
-            android:layout_centerHorizontal="true"
-            android:text="citta"
-            android:textColor="#343434"
-            android:textSize="15dip" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_adp_listconversation_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="false" />
 </RelativeLayout>

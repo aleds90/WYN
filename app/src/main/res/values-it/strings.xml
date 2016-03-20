@@ -45,4 +45,8 @@
     <string name="label_profile_password">Password:</string>
     <string name="label_contacts">Contatti</string>
     <string name="label_backtofilter">Torna ai filtri</string>
+    <string name="title_edit_profile">Modifica Profilo</string>
+    <string name="label_corfim">Conferma</string>
+    <string name="action_settings"></string>
+    <string name="label_cancel">Annulla</string>
 </resources>

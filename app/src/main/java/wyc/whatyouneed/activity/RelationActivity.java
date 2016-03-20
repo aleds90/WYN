@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,12 +24,16 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import wyc.whatyouneed.R;
+import wyc.whatyouneed.adpter.AdapterListConversation;
 import wyc.whatyouneed.adpter.AdapterListUser;
+import wyc.whatyouneed.entity.ClientLocalStore;
+import wyc.whatyouneed.entity.Message;
 import wyc.whatyouneed.entity.User;
 
 public class RelationActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton ib_home,ib_search,ib_relation,ib_profile;
+    ClientLocalStore localStore;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -64,6 +69,8 @@ public class RelationActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void findViewById() {
+
+        localStore = new ClientLocalStore(this);
 
         ib_home    = (ImageButton)findViewById(R.id.ib_relation_home);
         ib_home.setOnClickListener(this);
@@ -188,13 +195,7 @@ public class RelationActivity extends AppCompatActivity implements View.OnClickL
                 });
             }else
             {
-                System.out.println("sono nel secondo");
-                final ArrayList<User> list = new ArrayList<>();
-                User user = new User();
-                user.setName("Alessandro");
-                user.setSurname("Di Stefano");
-                user.setCity("Roma");
-                user.setRole("Programmatore");
+                final ArrayList<Message> list = new ArrayList<>();
 
                 User user1 = new User();
                 user1.setName("Marco");
@@ -202,36 +203,64 @@ public class RelationActivity extends AppCompatActivity implements View.OnClickL
                 user1.setCity("Napoli");
                 user1.setRole("Pittore");
 
+                Message message = new Message();
+                message.setId_sender(user1);
+                ClientLocalStore localStore = new ClientLocalStore(getContext());
+                message.setId_receiver(localStore.getUser());
+                message.setSendetAt("15:30, 19/09");
+                message.setText("io sto bene, te?");
+
+
                 User user2 = new User();
                 user2.setName("Marco");
                 user2.setSurname("Santoni");
                 user2.setCity("Roma");
                 user2.setRole("Programmatore");
 
-                User user3 = new User();
-                user3.setName("Luca");
-                user3.setSurname("Geonoa");
-                user3.setCity("Milano");
-                user3.setRole("Pittore");
-
-                list.add(user);
+                Message message1 = new Message();
+                message.setId_sender(localStore.getUser());
+                message.setId_receiver(user2);
+                message.setSendetAt("19:30, 19/09");
+                message.setText("a che ora facciamo lezione?");
 
 
+                list.add(message);
+                list.add(message1);
+
+                ArrayList<User> listUser = createUserList(list);
 
                 final ListView listView = (ListView) rootView.findViewById(R.id.section_label);
-                listView.setAdapter(new AdapterListUser(list, getContext()));
+                listView.setAdapter(new AdapterListConversation(list, getContext(), listUser));
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        User current = (User)listView.getAdapter().getItem(position);
-                        Toast.makeText(getContext(), current.getName(), Toast.LENGTH_LONG).show();
+                        Message current = (Message)listView.getAdapter().getItem(position);
+                        Toast.makeText(getContext(), current.getText(), Toast.LENGTH_LONG).show();
 
                     }
                 });
             }
             return rootView;
         }
-    }
+
+        private ArrayList<User> createUserList(ArrayList<Message> messageArrayList) {
+            ClientLocalStore localStore = new ClientLocalStore(getContext());
+
+            ArrayList<User> usersList = new ArrayList<>();
+            for(Message m : messageArrayList){
+                if(m.getId_receiver() !=  localStore.getUser()){
+                    usersList.add(m.getId_receiver());
+
+                }
+                else { usersList.add(m.getId_sender());};
+            }
+            System.out.println(usersList.size());
+            return usersList;
+
+        }
+
+        }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

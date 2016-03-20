@@ -1,10 +1,13 @@
 package wyc.whatyouneed.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -63,16 +66,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
 
         fab_edit        = (FloatingActionButton)findViewById(R.id.fab_profile_edit);
+        fab_edit.setOnClickListener(this);
         fab_gallery     = (FloatingActionButton)findViewById(R.id.fab_profile_gallery);
+        fab_gallery.setOnClickListener(this);
         fab_location    = (FloatingActionButton)findViewById(R.id.fab_profile_location);
-        fab_location.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this, LocationActivity.class);
-                intent.putExtra("coordinate", localStore.getUser().getCity());
-                startActivity(intent);
-            }
-        });
+        fab_location.setOnClickListener(this);
 
         ib_home    = (ImageButton)findViewById(R.id.ib_profile_home);
         ib_home.setOnClickListener(this);
@@ -97,6 +95,38 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.ib_profile_relation:
                 Intent relationIntent = new Intent(this, RelationActivity.class);
                 startActivity(relationIntent);
+                break;
+            case R.id.fab_profile_location:
+                Intent intent = new Intent(ProfileActivity.this, LocationActivity.class);
+                intent.putExtra("coordinate", localStore.getUser().getCity());
+                startActivity(intent);
+                break;
+            case R.id.fab_profile_edit:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(getResources().getString(R.string.title_edit_profile));
+                LayoutInflater inflater = this.getLayoutInflater();
+                View view = inflater.inflate(R.layout.dialog_profile, null);
+                EditText editName = (EditText)view.findViewById(R.id.et_dialog_name);
+                editName.setText(localStore.getUser().getName());
+                EditText editSurname = (EditText)view.findViewById(R.id.et_dialog_surname);
+                editSurname.setText(localStore.getUser().getSurname());
+                EditText editEmail = (EditText)view.findViewById(R.id.et_dialog_email);
+                editEmail.setText(localStore.getUser().getEmail());
+                EditText editPassword = (EditText)view.findViewById(R.id.et_dialog_password);
+                editPassword.setText(localStore.getUser().getPassword());
+                EditText editCity = (EditText)view.findViewById(R.id.et_dialog_city);
+                editCity.setText(localStore.getUser().getCity());
+                EditText editRole = (EditText)view.findViewById(R.id.et_dialog_role);
+                editRole.setText(localStore.getUser().getRole());
+                EditText editDescription = (EditText)view.findViewById(R.id.et_dialog_description);
+                editDescription.setText(localStore.getUser().getDescription());
+                EditText editNotice = (EditText)view.findViewById(R.id.et_dialog_notice);
+                editNotice.setText("");
+                builder.setView(view);
+                builder.setPositiveButton(getResources().getString(R.string.label_corfim), null);
+                builder.setNegativeButton(getResources().getString(R.string.label_cancel), null);
+                builder.show();
+
                 break;
         }
 
